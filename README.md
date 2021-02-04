@@ -1,0 +1,3 @@
+# Crash
+
+Usage : `/crash <Player>`
