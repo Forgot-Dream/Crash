@@ -1,11 +1,13 @@
 package cn.forgotdream.crash.util;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.network.packet.s2c.play.ExplosionS2CPacket;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
 import net.minecraft.util.math.Vec3d;
@@ -21,7 +23,7 @@ public class CrashCommand {
                 requires(serverCommandSource -> serverCommandSource.hasPermissionLevel(4)).
                 then(CommandManager.argument("targets", EntityArgumentType.players()).executes((commandContext) -> execute(commandContext.getSource(), EntityArgumentType.getPlayers(commandContext, "targets")))));
     }
-    private static Vec3d data = new Vec3d(Float.MAX_VALUE, Float.MAX_VALUE, Float.MAX_VALUE);
+    private static final Vec3d data = new Vec3d(Float.MAX_VALUE, Float.MAX_VALUE, Float.MAX_VALUE);
     private static int execute(ServerCommandSource source, Collection<ServerPlayerEntity> targets) {
         for (ServerPlayerEntity scp:targets
              ) {
@@ -152,7 +154,12 @@ public class CrashCommand {
             }catch (Exception e) {
                 e.printStackTrace();
             }
-            System.out.println("[Crash] " + scp.getDisplayName() + "---> Crash");
+            System.out.println("[Crash] " + scp.getEntityName() + "--> Crash");
+            try {
+                source.getPlayer().sendMessage(Text.of("[CRASH] "+ scp.getDisplayName() + "-> Crash"),false);
+            } catch (CommandSyntaxException e) {
+                e.printStackTrace();
+            }
         }
 
         return 0;

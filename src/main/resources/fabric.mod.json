@@ -4,16 +4,16 @@
   "version": "1.0.0",
 
   "name": "Crash",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "description": "CRASH CLIENT",
   "authors": [
     "Forgot_Dream"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/Forgot-Dream/Crash",
+    "sources": "https://github.com/Forgot-Dream/Crash"
   },
 
-  "license": "CC0-1.0",
+  "license": "GPL-3.0",
   "icon": "assets/crash/icon.png",
 
   "environment": "*",
